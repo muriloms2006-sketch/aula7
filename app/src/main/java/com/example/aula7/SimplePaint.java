@@ -11,11 +11,16 @@ import android.view.View;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
+import java.util.ArrayList;
 
 
 public class SimplePaint extends View {
     Path path;
     Paint paint;
+
+    ArrayList<Paint> paintList;
+    ArrayList<Path>  pathList;
+
     public SimplePaint(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         path = new Path();
@@ -23,11 +28,17 @@ public class SimplePaint extends View {
         paint.setStrokeWidth(5);
         paint.setColor(0xFF000000);
         paint.setStyle(Paint.Style.STROKE);
+        paint.setAntiAlias(true);
+        paintList=new ArrayList<>();
+        pathList=new ArrayList<>();
     }
 
     @Override
     protected  void onDraw(@NonNull Canvas canvas){
         super.onDraw(canvas);
+        for(int i=0; i<paintList.size(); i++){
+            canvas.drawPath(pathList.get(i), paintList.get(i));
+        }
         canvas.drawPath(path, paint);
     }
 
@@ -50,5 +61,14 @@ public class SimplePaint extends View {
         }
         invalidate();
         return true;
+    }
+
+    public void setColor(int color) {
+        paintList.add(paint);
+        pathList.add(path);
+        path = new Path();
+        paint = new Paint(paint);
+        paint.setColor(color);
+        invalidate();
     }
 }

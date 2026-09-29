@@ -37,6 +37,7 @@ dependencies {
     implementation(libs.activity.ktx)
     implementation(libs.appcompat)
     implementation(libs.constraintlayout)
+    implementation("com.github.skydoves:colorpickerview:2.5.0")
     implementation(libs.material)
     testImplementation(libs.junit)
     androidTestImplementation(libs.espresso.core)
